@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Traces Conversor</title>
+	<script src="moment.js"></script>
+	<script type="text/javascript">
+		function transform(){
+			var original = document.getElementById("original").value;
+
+			var lines = original.split("\n");
+
+			var total = "";
+
+			for(var l in lines){
+				var c = lines[l].split(",");
+				if(c.length > 1){
+					var d = moment(parseInt(c[0])).format(document.getElementById("format").value);//.toISOString();
+					total += d + lines[l].substr(c[0].length, lines[l].length) + "\n";
+				}else{
+					total += "#### Timestamp no encontrado #### " + lines[l] + "\n";
+				}
+				
+			}
+
+			document.getElementById("transformed").value = total;
+		}
+	</script>
+</head>
+<body>
+	<h1>Timestam traces conversor</h1>
+	<table style="width: 100%;">
+		<tr>
+			<th>Original</th>
+			<th>Transformed</th>
+		</tr>
+		<tr>
+			<td colspan="2" style="text-align: center">Format (see <a href="https://momentjs.com/docs/#/displaying/">format guide</a>): <input type="text" id="format" value="DD-MM-YYYY h:mm:ss"><button onclick="transform()">Transform >>></button></td>
+		</tr>
+		<tr>
+			<td>
+				<textarea id="original" placeholder="//EXAMPLE
+
+1496409893936,selected,question,InitTracker,response,start,success,true;
+1496409920575,accessed,accessible,StartGame,gender,male,pass,1234;
+1496409969335,interacted,gameobject,Computer,GameDay,0,GameHour,7:30,IsRepeatedDay,False,MobileMessages,False;
+1496409972440,selected,dialog,turnOnPC,response,Si;
+1496409972452,accessed,accessible,computer;
+1496409975087,accessed,accessible,bedroom,hour,8:10;
+1496409976158,interacted,gameobject,Bag,GameDay,0,GameHour,8:10,IsRepeatedDay,False,MobileMessages,False;
+1496409980569,accessed,accessible,livingroom;
+1496409981534,interacted,gameobject,BedroomDoor,GameDay,0,GameHour,8:10,IsRepeatedDay,False,MobileMessages,False;
+1496409981537,accessed,accessible,bedroom;
+
+//EXAMPLE"style="width: 100%; height: 600px;"></textarea>
+			</td>
+			<td>
+				<textarea id="transformed" placeholder="//EXAMPLE
+
+02-06-2017 3:24:53,selected,question,InitTracker,response,start,success,true;
+02-06-2017 3:25:20,accessed,accessible,StartGame,gender,male,pass,1234;
+02-06-2017 3:26:09,interacted,gameobject,Computer,GameDay,0,GameHour,7:30,IsRepeatedDay,False,MobileMessages,False;
+02-06-2017 3:26:12,selected,dialog,turnOnPC,response,Si;
+02-06-2017 3:26:12,accessed,accessible,computer;
+02-06-2017 3:26:15,accessed,accessible,bedroom,hour,8:10;
+02-06-2017 3:26:16,interacted,gameobject,Bag,GameDay,0,GameHour,8:10,IsRepeatedDay,False,MobileMessages,False;
+02-06-2017 3:26:20,accessed,accessible,livingroom;
+02-06-2017 3:26:21,interacted,gameobject,BedroomDoor,GameDay,0,GameHour,8:10,IsRepeatedDay,False,MobileMessages,False;
+02-06-2017 3:26:21,accessed,accessible,bedroom;
+
+//EXAMPLE" style="width: 100%; height: 600px;"></textarea>
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
