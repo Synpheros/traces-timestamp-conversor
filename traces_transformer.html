@@ -17,7 +17,7 @@
 					var d = moment(parseInt(c[0])).format(document.getElementById("format").value);//.toISOString();
 					total += d + lines[l].substr(c[0].length, lines[l].length) + "\n";
 				}else{
-					total += "#### Timestamp no encontrado #### " + lines[l] + "\n";
+					total += moment(parseInt(lines[l])).format(document.getElementById("format").value) + "\n";
 				}
 				
 			}
